@@ -30,45 +30,52 @@
   <!-- Main Content -->
   <div class="main-content">
     <div class="pesawat-ticket-section">
-      <img src="images/transport3.png" alt="Pesawat" class="background-plane">
-      <div class="header-content">
+      <div class="hero-left">
         <h1>Cek Harga Tiket Pesawat Online Murah dan Promo Hari Ini</h1>
+        <img src="images/transport3.png" alt="Pesawat" class="plane-image">
       </div>
       <div class="ticket-form-overlay">
         <form action="hasil.pesawat.php" method="GET">
-          <div class="form-main-grid">
-            <div class="form-col">
-              <div class="form-group" id="from-group">
-                <label for="from">Dari</label>
-                <div class="input-wrapper">Surabaya SUB</div>
+          <div class="form-row-group">
+            <div class="form-group" id="from-group">
+              <label for="from">Dari</label>
+              <div class="input-wrapper">
+                Surabaya <span class="code">SUB</span>
               </div>
-              <div class="form-group" id="to-group">
-                <label for="to">Ke</label>
-                <div class="input-wrapper">Denpasar DPS</div>
+              <span class="arrow-icon">›</span>
+            </div>
+            <div class="form-group" id="to-group">
+              <label for="to">Ke</label>
+              <div class="input-wrapper">
+                Denpasar <span class="code">DPS</span>
               </div>
+              <span class="arrow-icon">›</span>
             </div>
             <div class="swap-icon" id="swap-icon"><i class="fas fa-exchange-alt"></i></div>
-            <div class="form-col">
-              <div class="form-row">
-                <div class="date-group">
-                  <label for="departure-date">Pergi</label>
-                  <div class="input-wrapper">Senin, 1 April</div>
-                </div>
-                <div class="round-trip">
-                  <span>Pulang-Pergi?</span>
-                  <div class="round-trip-toggle" id="round-trip-toggle">
-                    <i class="fas fa-check"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group" id="return-date-container" style="display: none;">
-                <label for="return-date">Pulang</label>
-                <div class="input-wrapper">Senin, 8 April</div>
+          </div>
+
+          <div class="date-row">
+            <div class="date-group flex-grow">
+              <label for="departure-date">Pergi</label>
+              <div class="input-wrapper">Senin, 1 April</div>
+            </div>
+            <div class="round-trip">
+              <span>Pulang-Pergi?</span>
+              <div class="round-trip-toggle" id="round-trip-toggle">
+                <i class="fas fa-check"></i>
               </div>
             </div>
           </div>
+
+          <div class="form-group" id="return-date-container">
+            <label for="return-date">Pulang</label>
+            <div class="input-wrapper">Senin, 8 April</div>
+            <span class="arrow-icon">›</span>
+          </div>
+
           <div class="passengers-group">
             <span>1 Penumpang, Ekonomi</span>
+            <span class="arrow-icon">›</span>
           </div>
           <button type="submit" class="submit-btn">Ayo Cari</button>
         </form>
@@ -113,44 +120,43 @@
 
     // Round trip toggle functionality
     function toggleReturnDate() {
-        isRoundTrip = !isRoundTrip;
-        const icon = roundTripToggle.querySelector('i');
-        if (isRoundTrip) {
-            returnDateContainer.style.display = 'block';
-            icon.className = 'fas fa-check';
-        } else {
-            returnDateContainer.style.display = 'none';
-            icon.className = 'fas fa-times';
-        }
+      isRoundTrip = !isRoundTrip;
+      const icon = roundTripToggle.querySelector('i');
+      if (isRoundTrip) {
+        returnDateContainer.style.display = 'block';
+        icon.className = 'fas fa-check';
+        roundTripToggle.classList.remove('inactive');
+      } else {
+        returnDateContainer.style.display = 'none';
+        icon.className = 'fas fa-times';
+        roundTripToggle.classList.add('inactive');
+      }
     }
+
     roundTripToggle.addEventListener('click', toggleReturnDate);
 
     // Swap functionality
     swapIcon.addEventListener('click', () => {
-        // Add animation classes
-        swapIcon.classList.add('swapping');
-        fromGroup.classList.add('swapping');
-        toGroup.classList.add('swapping');
+      swapIcon.classList.add('swapping');
+      fromGroup.classList.add('swapping');
+      toGroup.classList.add('swapping');
 
-        setTimeout(() => {
-            // Swap the content
-            const fromWrapper = fromGroup.querySelector('.input-wrapper');
-            const toWrapper = toGroup.querySelector('.input-wrapper');
-            const temp = fromWrapper.innerHTML;
-            fromWrapper.innerHTML = toWrapper.innerHTML;
-            toWrapper.innerHTML = temp;
+      setTimeout(() => {
+        const fromWrapper = fromGroup.querySelector('.input-wrapper');
+        const toWrapper = toGroup.querySelector('.input-wrapper');
+        const temp = fromWrapper.innerHTML;
+        fromWrapper.innerHTML = toWrapper.innerHTML;
+        toWrapper.innerHTML = temp;
 
-            // Remove animation classes
-            swapIcon.classList.remove('swapping');
-            fromGroup.classList.remove('swapping');
-            toGroup.classList.remove('swapping');
-        }, 200); // Duration should match the CSS transition
+        swapIcon.classList.remove('swapping');
+        fromGroup.classList.remove('swapping');
+        toGroup.classList.remove('swapping');
+      }, 200);
     });
 
-    // Initial state for round trip
-    isRoundTrip = false;
-    toggleReturnDate();
-
+    // Initial state - show return date by default
+    isRoundTrip = true;
+    returnDateContainer.style.display = 'block';
   </script>
 
 </body>
