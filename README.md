@@ -1,7 +1,7 @@
 # Bali Tourism Portal - Web Platform
 
 <p align="center">
-  <img src="https://i.imgur.com/example.png" alt="Project Screenshot" width="800"/>
+  <img src="bali-project.png" alt="Project Screenshot" width="800"/>
 </p>
 
 <p align="center">
