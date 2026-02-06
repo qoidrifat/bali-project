@@ -19,7 +19,7 @@
   <img src="https://img.shields.io/badge/PHP-7.4-blue?logo=php" alt="PHP Version">
   <img src="https://img.shields.io/badge/MySQL-8.0-orange?logo=mysql" alt="MySQL Version">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
-  <img src="https://img.shields.io/github/stars/username/repo?style=social" alt="GitHub Stars">
+  <img src="https://img.shields.io/github/stars/qoidrifat/bali-project" alt="GitHub Stars">
 </p>
 
 ---
