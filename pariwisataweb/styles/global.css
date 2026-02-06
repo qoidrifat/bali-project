@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+:root {
+  --action-size: 15px;
+  --title-size: 56px;
+  --body-size: 15px;
+  --heading-size: 18px;
+  --primary-color: #37bebe;
+  --gray-color: #bdbcbc;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  font-size: var(--body-size);
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  box-sizing: border-box;
+  border: none;
+  border: 1.5px solid var(--gray-color);
+  font-size: var(--body-size);
+  border-radius: 7px;
+}
+
+.input-group textarea {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  box-sizing: border-box;
+  border: none;
+  border: 1.5px solid var(--gray-color);
+  font-size: var(--body-size);
+  outline: none;
+  resize: none;
+  border-radius: 7px;
+}

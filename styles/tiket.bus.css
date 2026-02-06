@@ -1,0 +1,102 @@
+@import "global.css";
+@import "navbar.css";
+
+.main-content {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.bus-ticket-section {
+  text-align: center;
+}
+
+.bus-image {
+  position: relative;
+  margin-top: 0;
+  z-index: 0;
+}
+
+.bus-image img {
+  width: 80%;
+  height: 85vh;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.back-overlay {
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  margin-left: 130px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.back-button {
+  background-color: #4caf50;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  padding: 5px 10px;
+}
+
+.back-button:hover {
+  background-color: #45a049;
+}
+
+.header-overlay {
+  position: absolute;
+  top: 40px;
+  margin-left: 25vh;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.header-overlay h1 {
+  font-size: 38px;
+  color: white;
+}
+
+.ticket-form-overlay {
+  position: absolute;
+  top: 55%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  z-index: 1;
+}
+
+.ticket-form-overlay form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.ticket-form-overlay form label {
+  font-size: 14px;
+  color: #333;
+}
+
+select, input[type="date"], button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.ticket-form-overlay button {
+  background-color: #21005d;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.ticket-form-overlay button:hover {
+  background-color: #3c2a76;
+}

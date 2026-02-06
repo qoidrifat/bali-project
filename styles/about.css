@@ -1,0 +1,53 @@
+@import "global.css";
+@import "navbar.css";
+
+.banner {
+  width: 100%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+    url("../images/about.png") center/cover no-repeat;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the text */
+  text-align: center;
+}
+
+.banner h1 {
+  font-size: 48px; /* Slightly smaller for balance */
+  color: white;
+  padding: 1.5rem 2rem; /* Adjusted padding */
+  box-sizing: border-box;
+}
+
+.about {
+  padding: 4rem 2rem; /* Increased padding */
+  background-color: #f9f9f9; /* Light background */
+}
+
+.about_content {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column for better readability */
+  gap: 20px;
+  max-width: 800px; /* Limit width for readability */
+  margin: 0 auto; /* Center the content */
+}
+
+.about p {
+  font-size: 16px;
+  line-height: 1.8;
+  text-align: left;
+  color: #555555;
+}
+
+.about p:first-child {
+  font-weight: 600;
+  font-size: 20px;
+  color: #333333;
+  margin-bottom: 1rem;
+}
+
+.about p:last-child {
+  margin-top: 1rem;
+  font-style: italic;
+  color: #666666;
+}

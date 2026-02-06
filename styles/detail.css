@@ -1,0 +1,53 @@
+@import "global.css";
+@import "navbar.css";
+
+.banner {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 10px;
+}
+
+.banner h1 {
+  font-size: var(--title-size);
+  color: white;
+  padding: 4rem;
+  box-sizing: border-box;
+}
+
+.detail {
+  padding: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 50px;
+}
+
+.detail .detail_content {
+  width: 70%;
+}
+
+.detail .detail_content div {
+  margin-bottom: 20px;
+}
+
+.detail .detail_content p {
+  font-size: var(--body-size);
+}
+
+.detail .detail_content h2 {
+  font-size: var(--heading-size);
+  margin-bottom: 10px;
+}
+
+.detail .detail_image {
+  width: 30%;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  row-gap: 20px;
+}
+
+.detail .detail_image img {
+  width: 100%;
+  border-radius: 10px;
+}

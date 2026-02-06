@@ -1,0 +1,42 @@
+@import "global.css";
+@import "navbar.css";
+
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../images/bg.png");
+  min-height: 90vh;
+  background-position: center;
+  background-size: cover;
+}
+
+.hero .hero_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+
+.hero .hero_container h1 {
+  font-size: var(--title-size);
+  color: white;
+}
+
+.hero .hero_container p {
+  font-size: var(--heading-size);
+  width: 50%;
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+}
+
+.hero .hero_container button {
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  background-color: var(--primary-color);
+  border: none;
+  color: white;
+  font-size: var(--body-size);
+  margin-top: 40px;
+  border-radius: 10px;
+}

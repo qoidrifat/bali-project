@@ -1,0 +1,35 @@
+@import "global.css";
+@import "navbar.css";
+
+.banner {
+  width: 100%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),
+    url("../images/about.png");
+  background-color: red;
+  height: 400px;
+  display: flex;
+  align-items: center;
+}
+
+.banner h1 {
+  font-size: var(--title-size);
+  color: white;
+  padding: 1.5rem 4rem;
+  box-sizing: border-box;
+}
+
+.about p {
+  font-size: var(--body-size);
+}
+
+.about {
+  padding: 2rem 0;
+}
+
+.about .about_content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 40px;
+  text-align: justify;
+  padding: 1rem 0;
+}

@@ -1,0 +1,135 @@
+@import "global.css";
+@import "navbar.css";
+/* General styles */
+body {
+    font-family: Poppins, sans-serif;
+}
+
+.results {
+    min-height: 100vh;
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.nav-item {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: #000000;
+    cursor: pointer;
+    position: relative;
+    padding: 5px 0;
+}
+
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #000000;
+    transition: width 0.3s;
+}
+
+.nav-item:hover {
+    font-weight: 500;
+}
+
+.nav-item:hover::after {
+    width: 103%;
+}
+
+.nav-item.active {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    position: relative;
+}
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #000000;
+}
+
+
+/* Main content styles */
+.main-content {
+    padding: 20px;
+}
+
+.main-content h1 {
+    text-align: center;
+    color: #333;
+}
+
+.search-details {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-left: 5px solid #6750A4;
+}
+
+.search-details p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.bus-results table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.bus-results th,
+.bus-results td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.bus-results th {
+    background-color: #6750A4;
+    color: #fff;
+}
+
+.bus-results tr:hover {
+    background-color: #f1f1f1;
+}
+
+.bus-results td a {
+    text-decoration: none;
+    color: #21005D;
+    font-weight: bold;
+}
+
+.bus-results td a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .results {
+        width: 95%;
+    }
+
+    .navbar_container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu .nav-item {
+        margin: 5px 0;
+    }
+}

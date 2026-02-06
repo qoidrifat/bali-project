@@ -1,0 +1,44 @@
+@import "global.css";
+
+.contact {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  justify-content: space-between;
+}
+
+.contact .contact_image {
+  background-image: url("../images/contact.png");
+  width: 40%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+.contact .contact_form {
+  margin: auto;
+  max-width: 40%;
+}
+
+.contact .contact_form h1 {
+  font-size: var(--title-size);
+  margin-bottom: 20px;
+}
+
+.contact .contact_form p {
+  font-size: var(--body-sizd);
+  width: 70%;
+}
+
+.contact .contact_form form {
+  padding: 2rem 0;
+}
+
+.contact .contact_form button {
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  background-color: var(--primary-color);
+  border: none;
+  font-size: var(--body-size);
+  border-radius: 10px;
+}
