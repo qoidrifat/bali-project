@@ -106,7 +106,7 @@ pariwisataweb/
 |-- transport.php     # Application view
 |-- ...               # Other .php files
 |-- bali.sql          # Database schema and data dump
-`-- README.md         # This file
+|-- README.md         # This file
 ```
 
 ---
