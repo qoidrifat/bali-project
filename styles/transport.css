@@ -1,431 +1,555 @@
 @import "global.css";
-@import "navbar.css";
+
+/* =========================================
+   1. RESET & BASE
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body {
-  background-color: #f4f6f8;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa;
+    font-family: 'Inter', sans-serif;
+    color: #333;
 }
 
-.main-content {
-  padding: 2rem 4rem;
-  max-width: 1400px;
-  margin: 0 auto;
+/* =========================================
+   2. NAVBAR
+   ========================================= */
+.navbar {
+    background: white;
+    padding: 1.5rem 4rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
 }
 
-.pesawat-ticket-section {
-  position: relative;
-  background: linear-gradient(135deg, #5eb3d6 0%, #3d8bb8 100%);
-  border-radius: 20px;
-  padding: 3rem;
-  margin-top: 2rem;
-  display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 3rem;
-  align-items: center;
-  min-height: 400px;
-  overflow: visible;
-}
-
-.hero-left {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.hero-left h1 {
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.3;
-  color: white;
-  max-width: 500px;
-}
-
-.plane-image {
-  width: 100%;
-  max-width: 550px;
-  height: auto;
-  object-fit: contain;
-}
-
-.ticket-form-overlay {
-  background-color: white;
-  border-radius: 15px;
-  padding: 1.5rem;
-  color: #333;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  position: relative;
-  z-index: 2;
-}
-
-.ticket-form-overlay form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.form-row-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  position: relative;
-}
-
-.form-group,
-.passengers-group {
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  padding: 0.75rem 1rem;
-  cursor: pointer;
-  position: relative;
-  background-color: #f8f9fa;
-  transition: all 0.2s ease;
-}
-
-.form-group:hover,
-.passengers-group:hover {
-  background-color: #f0f1f3;
-  border-color: #d0d0d0;
-}
-
-.form-group .input-wrapper {
-  transition: opacity 0.2s ease-in-out;
-}
-
-.form-group.swapping .input-wrapper {
-  opacity: 0;
-}
-
-.form-group label,
-.date-group label {
-  font-size: 13px;
-  color: #888;
-  display: block;
-  margin-bottom: 4px;
-  font-weight: 500;
-}
-
-.form-group .input-wrapper,
-.date-group .input-wrapper {
-  font-weight: 600;
-  font-size: 15px;
-  color: #333;
-}
-
-.input-wrapper .code {
-  color: #888;
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.arrow-icon {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #888;
-  font-size: 20px;
-  font-weight: 300;
-}
-
-.swap-icon {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  border: 1px solid #d0d0d0;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: #666;
-  z-index: 10;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.swap-icon:hover {
-  background-color: #f8f9fa;
-  transform: translate(-50%, -50%) scale(1.1);
-}
-
-.swap-icon.swapping {
-  transform: translate(-50%, -50%) rotate(180deg);
-}
-
-.date-row {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  padding: 0.75rem 1rem;
-  background-color: #f8f9fa;
-}
-
-.date-row:hover {
-  background-color: #f0f1f3;
-  border-color: #d0d0d0;
-}
-
-.date-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.flex-grow {
-  flex: 1;
-}
-
-.round-trip {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: #666;
-  white-space: nowrap;
-}
-
-.round-trip-toggle {
-  background-color: #6f42c1;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.round-trip-toggle:hover {
-  transform: scale(1.1);
-}
-
-.round-trip-toggle i {
-  color: white;
-  font-size: 12px;
-}
-
-.round-trip-toggle.inactive {
-  background-color: #e0e0e0;
-}
-
-.round-trip-toggle.inactive i {
-  color: #999;
-}
-
-.passengers-group {
-  font-weight: 600;
-  font-size: 15px;
-  padding: 0.85rem 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.passengers-group span:first-child {
-  color: #333;
-}
-
-.submit-btn {
-  background: linear-gradient(135deg, #4ed0ff 0%, #3bb8e6 100%);
-  color: white;
-  border: none;
-  padding: 1rem;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(78, 208, 255, 0.3);
-}
-
-.submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(78, 208, 255, 0.4);
-}
-
-.recommendations {
-  margin-top: 4rem;
-}
-
-.recommendations h2 {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  color: #333;
-}
-
-.side_by_side_images {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
-
-.card-image1, .card-image2 {
-  background-size: cover;
-  background-position: center;
-  border-radius: 15px;
-  color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  height: 280px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 1.5rem;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card-image1:hover, .card-image2:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.card-image1::before, .card-image2::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 80%);
-}
-
-.card-image1 .head, .card-image2 .head, .card-image1 .foot, .card-image2 .foot {
-  position: relative;
-  z-index: 1;
-}
-
-.card-image1 { background-image: url('../images/transport2.png'); }
-.card-image2 { background-image: url('../images/transport1.png'); }
-
-.head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.logo img {
-  filter: brightness(0) invert(1);
-  height: auto;
-}
-
-.card-image1 .logo img { width: 110px; }
-.card-image2 .logo img { width: 160px; }
-
-.detail a {
-  color: #3d8bb8;
-  text-decoration: none;
-  font-weight: 600;
-  background: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 13px;
-  transition: all 0.3s ease;
-}
-
-.detail a:hover {
-  background-color: #f0f0f0;
-}
-
-.foot {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.foot p {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-.foot p:last-child {
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.foot strong {
-  font-weight: 700;
-}
-
-@media (max-width: 1200px) {
-  .pesawat-ticket-section {
-    grid-template-columns: 1fr 380px;
-    gap: 2rem;
-  }
-
-  .hero-left h1 {
-    font-size: 32px;
-  }
-}
-
-@media (max-width: 992px) {
-  .main-content {
-    padding: 2rem;
-  }
-
-  .pesawat-ticket-section {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 2rem;
-  }
-
-  .hero-left {
-    text-align: center;
+.navbar_container {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-  }
-
-  .hero-left h1 {
-    font-size: 28px;
-    max-width: 100%;
-  }
-
-  .plane-image {
-    max-width: 400px;
-  }
-
-  .ticket-form-overlay {
-    max-width: 100%;
-  }
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  .main-content {
-    padding: 1rem;
-  }
+.brand img {
+    height: 40px;
+    object-fit: contain;
+}
 
-  .pesawat-ticket-section {
-    padding: 1.5rem;
-  }
+.menu {
+    display: flex;
+    gap: 2rem;
+}
 
-  .hero-left h1 {
-    font-size: 24px;
-  }
+.nav-item {
+    text-decoration: none;
+    color: #444;
+    font-size: 16px;
+    font-weight: 500;
+    padding-bottom: 5px;
+}
 
-  .plane-image {
-    max-width: 300px;
-  }
+.nav-item.active {
+    color: #000;
+    font-weight: 700;
+    border-bottom: 3px solid #000;
+}
 
-  .side_by_side_images {
-    grid-template-columns: 1fr;
-  }
+/* =========================================
+   3. HERO SECTION (Layout Utama)
+   ========================================= */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
 
-  .date-row {
+.hero-section {
+    background-color: #5aaecb;
+    border-radius: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 480px;
+    margin-bottom: 3rem;
+    background-image: url('../images/transport3.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+}
+
+.hero-text {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    padding-right: 2rem;
+    margin-top: -2rem;
+}
+
+.hero-text h1 {
+    color: white;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.4;
+    max-width: 450px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* =========================================
+   4. SEARCH CARD (Lebar & Lega)
+   ========================================= */
+.search-card {
+    background: white;
+    /* Agar lebar dan lega sesuai gambar referensi */
+    min-width: 850px; 
+    width: auto;
+    padding: 2.5rem;
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    position: relative;
+    z-index: 10;
+    margin-right: -3rem; /* Offset sedikit ke kanan */
+}
+
+/* CONTAINER FORM (GRID KIRI & KANAN) */
+.form-split-container {
+    display: grid;
+    /* Kolom kiri tetap 300px, kolom kanan mengisi sisa ruang */
+    grid-template-columns: 300px 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* BAGIAN KIRI: RUTE (Dari & Ke) */
+.left-route-section {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
+    gap: 1rem;
+    position: relative;
+}
 
-  .round-trip {
-    align-self: flex-start;
-  }
+/* BAGIAN KANAN: DINAMIS (Tanggal & Penumpang) */
+.right-dynamic-section {
+    display: flex;
+    flex-wrap: wrap; /* Agar elemen bisa turun/naik */
+    gap: 1rem;
+    align-content: flex-start;
+}
+
+/* =========================================
+   5. ANIMASI LAYOUT FLEXBOX
+   ========================================= */
+
+/* 1. Box Pergi */
+.box-dept {
+    /* Selalu setengah lebar (kurangi gap) */
+    width: calc(50% - 0.5rem);
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 2. Box Pulang */
+.box-return {
+    width: calc(50% - 0.5rem);
+    opacity: 1;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 3. Box Penumpang */
+.box-pax {
+    /* Default (Pulang-Pergi): Lebar penuh di baris bawah */
+    width: 100%;
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* === STATE: ONE WAY (SEKALI JALAN) === */
+/* Saat class 'is-oneway' ditambahkan via JS */
+
+.right-dynamic-section.is-oneway .box-return {
+    /* Box Pulang menyusut hingga hilang */
+    width: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Sembunyikan konten dalam agar tidak numpuk */
+.right-dynamic-section.is-oneway .box-return .anim-wrapper {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+/* Box Penumpang bergerak naik ke samping Pergi */
+.right-dynamic-section.is-oneway .box-pax {
+    width: calc(50% - 0.5rem);
+}
+
+/* =========================================
+   6. INPUT STYLING
+   ========================================= */
+.big-box {
+    background-color: #f8f9fa; /* Abu muda */
+    border-radius: 16px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 95px; /* Tinggi kotak besar */
+    position: relative;
+    transition: background 0.2s;
+    /* Agar tidak gepeng saat animasi */
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.big-box:focus-within {
+    background-color: #fff;
+    box-shadow: inset 0 0 0 2px #5aaecb;
+}
+
+.big-box label {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 8px;
+    font-weight: 600;
+    display: block;
+}
+
+/* Teks Input Tebal */
+.bold-text {
+    font-weight: 700;
+    font-size: 17px;
+    color: #333;
+    border: none;
+    background: transparent;
+    width: 100%;
+    outline: none;
+    padding: 0;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.custom-select {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Swap Button */
+.swap-btn-floating {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    cursor: pointer;
+    z-index: 5;
+    color: #555;
+    font-size: 16px;
+}
+
+.fa-rotate-90 {
+    transform: rotate(90deg);
+}
+
+/* =========================================
+   7. TOGGLE SWITCH & HEADER
+   ========================================= */
+.label-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 8px; /* Jarak ke input di bawahnya */
+}
+
+/* Container Toggle & Text (Row) */
+.toggle-flex {
+    display: flex;
+    flex-direction: row !important; /* Paksa baris */
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.toggle-flex span {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Switch iOS Style */
+.switch-ios {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+    margin-bottom: 0;
+}
+
+.switch-ios input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider-ios {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    border-radius: 20px;
+    transition: .4s;
+}
+
+.slider-ios:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+input:checked + .slider-ios {
+    background-color: #31006e; /* Ungu gelap sesuai referensi */
+}
+
+input:checked + .slider-ios:before {
+    transform: translateX(14px);
+}
+
+/* Icons & Button */
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-with-icon i {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+    color: #333;
+    font-size: 18px;
+    pointer-events: none;
+}
+
+/* Button Cari */
+.btn-search {
+    width: 100%;
+    background-color: #2dd4fc;
+    color: white;
+    border: none;
+    padding: 1.2rem;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 5px;
+    box-shadow: 0 4px 15px rgba(45, 212, 252, 0.4);
+}
+
+.btn-search:hover {
+    background-color: #1bcbf5;
+}
+
+/* =========================================
+   8. RECOMMENDATIONS
+   ========================================= */
+.recommendations h2 {
+    font-size: 22px;
+    color: #444;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.promo-card {
+    height: 260px;
+    border-radius: 24px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card-lion { background-image: url('../images/transport2.png'); }
+.card-garuda { background-image: url('../images/transport1.png'); }
+
+.overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%);
+}
+
+.card-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.airline-logo {
+    height: 45px;
+    filter: brightness(0) invert(1);
+}
+
+.btn-detail {
+    color: #2b55ff;
+    background: rgba(255,255,255,0.9);
+    padding: 8px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    color: white;
+}
+
+.destination-name {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.price-info {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* =========================================
+   9. MODAL & FLATPICKR OVERRIDES (FIXED)
+   ========================================= */
+.calendar-modal-overlay { 
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+    background-color: rgba(0,0,0,0.6); 
+    display: flex; justify-content: center; align-items: center; 
+    z-index: 9999; 
+    opacity: 0; visibility: hidden; 
+    transition: all 0.3s; backdrop-filter: blur(3px); 
+}
+.calendar-modal-overlay.active { opacity: 1; visibility: visible; }
+
+.calendar-modal-container { 
+    background: white; padding: 1.5rem; 
+    border-radius: 24px; 
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); 
+    position: relative; 
+    transform: scale(0.9); transition: transform 0.3s; 
+    display: inline-block;
+}
+.calendar-modal-overlay.active .calendar-modal-container { transform: scale(1); }
+
+.modal-close-btn { 
+    position: absolute; top: -15px; right: -15px; 
+    background-color: #e63946; color: white; border: none; 
+    width: 40px; height: 40px; border-radius: 50%; 
+    font-size: 18px; display: flex; align-items: center; justify-content: center; 
+    cursor: pointer; box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3); 
+    z-index: 10; transition: transform 0.2s; 
+}
+.modal-close-btn:hover { transform: scale(1.1); }
+
+/* --- GRID KALENDER FIX --- */
+.flatpickr-calendar { 
+    box-shadow: none !important; border: none !important; 
+    width: 360px !important; /* LEBAR DIPERBESAR AGAR MUAT 7 HARI */
+}
+
+.flatpickr-months { padding: 10px 0 20px 0; }
+
+.flatpickr-current-month { 
+    font-size: 20px !important; font-weight: 800 !important; 
+    text-align: left !important; left: 0 !important; 
+    padding-left: 10px !important; width: 100% !important; 
+}
+
+.flatpickr-current-month .cur-month, 
+.flatpickr-current-month .cur-year { 
+    font-weight: 800 !important; color: #111 !important; 
+}
+
+.flatpickr-months .flatpickr-prev-month, 
+.flatpickr-months .flatpickr-next-month { 
+    top: 5px !important; height: 30px !important; width: 30px !important; right: 10px !important; 
+}
+.flatpickr-months .flatpickr-prev-month { right: 50px !important; left: auto !important; }
+
+.flatpickr-months .flatpickr-prev-month:hover svg, 
+.flatpickr-months .flatpickr-next-month:hover svg { 
+    fill: #5aaecb !important; 
+}
+
+span.flatpickr-weekday { 
+    color: #888 !important; font-weight: 600 !important; font-size: 13px !important; 
+}
+
+/* Hari */
+.flatpickr-day { 
+    font-size: 14px !important; font-weight: 600 !important; 
+    color: #333 !important; border-radius: 10px !important; 
+    width: 44px !important; max-width: 44px !important; height: 44px !important; line-height: 44px !important;
+    margin: 3px !important; 
+    border: 1px solid transparent !important; 
+}
+
+.flatpickr-day.selected { 
+    background: #5aaecb !important; border-color: #5aaecb !important; color: #fff !important; 
+}
+
+.flatpickr-day.prevMonthDay, 
+.flatpickr-day.nextMonthDay { 
+    color: #ccc !important; font-weight: 400 !important; 
+}
+
+.flatpickr-day.flatpickr-disabled { 
+    color: #e0e0e0 !important; text-decoration: line-through; cursor: not-allowed !important; 
+}
+
+.flatpickr-day:not(.flatpickr-disabled):not(.prevMonthDay):hover { 
+    background: #e6f7ff !important; 
+}
+
+.dayContainer {
+    width: 360px !important; min-width: 360px !important; max-width: 360px !important;
+    padding: 0 !important;
+    justify-content: flex-start !important;
 }
