@@ -1,2 +1,24 @@
+# Dependencies
 node_modules/
+
+# Environment files
 .env
+.env.*
+!.env.example
+
+# Local/private runtime data
+storage/private/
+storage/tmp-preview/
+_project_cleanup_quarantine/
+
+# Local logs and OS metadata
+*.log
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
