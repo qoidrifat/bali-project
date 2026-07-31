@@ -1,60 +1,92 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="styles/hasil.mobil.css" />
-    <title>Hasil Pencarian Mobil</title>
-    <style>
-        .results {
-            display: inline-block;
-            justify-content: center;
-            align-items: center;
-            margin-left: 10%;
+<?php
+include "connection.php";
+
+$errors = [];
+$result = null;
+$stmt = null;
+$conn = $connection;
+
+$destination = trim($_GET['destination'] ?? '');
+$check_in = trim($_GET['check-in-date'] ?? '');
+$check_out = trim($_GET['check-out-date'] ?? '');
+$rooms = trim($_GET['rooms'] ?? '');
+
+$destination_options = [
+    '1' => 'Surabaya',
+    '2' => 'Denpasar',
+];
+
+if (!array_key_exists($destination, $destination_options)) {
+    $errors[] = 'Pilih kota tujuan yang valid.';
+}
+
+if ($check_in === '' || !is_valid_date_value($check_in)) {
+    $errors[] = 'Tanggal sewa wajib diisi dengan format yang valid.';
+}
+
+if ($check_out !== '' && !is_valid_date_value($check_out)) {
+    $errors[] = 'Tanggal selesai tidak valid.';
+}
+
+if ($check_in !== '' && $check_out !== '' && is_valid_date_value($check_in) && is_valid_date_value($check_out) && $check_out < $check_in) {
+    $errors[] = 'Tanggal selesai tidak boleh sebelum tanggal sewa.';
+}
+
+if (!in_array($rooms, ['1', '2'], true)) {
+    $errors[] = 'Pilih jumlah mobil yang valid.';
+}
+
+$destination_name = $destination_options[$destination] ?? '-';
+
+if (!$errors) {
+    if (!$conn) {
+        $errors[] = 'Maaf, koneksi database sedang bermasalah. Silakan coba lagi nanti.';
+    } else {
+        $destination_id = (int) $destination;
+        $rooms_count = (int) $rooms;
+
+        $sql = "SELECT car.vendor, car.name, bookings_mobil.detail
+                FROM car
+                JOIN bookings_mobil ON car.id_car = bookings_mobil.id_car
+                WHERE bookings_mobil.id_destinations = ?
+                AND bookings_mobil.check_in_date = ?";
+
+        if ($check_out !== '') {
+            $sql .= " AND bookings_mobil.check_out_date = ?";
         }
-        table {
-            border-collapse: collapse;
-            margin: 20px 0;
+
+        $sql .= " AND bookings_mobil.rooms = ?";
+
+        $stmt = $conn->prepare($sql);
+
+        if (!$stmt) {
+            error_log('Statement prepare failed in hasil.mobil.php: ' . $conn->error);
+            $errors[] = 'Maaf, pencarian mobil belum bisa diproses.';
+        } else {
+            if ($check_out !== '') {
+                $stmt->bind_param('issi', $destination_id, $check_in, $check_out, $rooms_count);
+            } else {
+                $stmt->bind_param('isi', $destination_id, $check_in, $rooms_count);
+            }
+
+            if (!$stmt->execute()) {
+                error_log('Statement execute failed in hasil.mobil.php: ' . $stmt->error);
+                $errors[] = 'Maaf, pencarian mobil gagal diproses.';
+            } else {
+                $result = $stmt->get_result();
+            }
         }
-        th, td {
-            text-align: center;
-            padding: 12px;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .header {
-            align-items: center;
-        }
-        .back-button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-        }
-        .back-button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-<div class="navbar">
-        <div class="navbar_container">
-            <div class="brand">
-                <img src="images/logo.png" alt="logo" />                
-            </div>
-            <div class="menu">
-                <a class="nav-item" href="index.php">Home</a>
-                <a class="nav-item" href="destination.html">Destination</a>
-                <a class="nav-item" href="about.html">About</a>
-                <a class="nav-item" href="contact.html">Contact</a>
-                <a class="nav-item" href="visa.php">Visa</a>
-                <a class="nav-item" href="transport.php">Transport</a>
-                <a class="nav-item active" href="tiket.php">Tiket</a>
-            </div>
-        </div>
-    </div>
+    }
+}
+    $page_title = 'Hasil Pencarian Mobil';
+    $page_desc  = 'Hasil pencarian rental mobil berdasarkan tujuan, tanggal, dan jumlah mobil.';
+    $page_css   = 'styles/hasil.mobil.css';
+    $active     = 'tiket';
+
+    include_once 'partials/booking_alternatives.php';
+    include 'partials/head.php';
+    include 'partials/navbar.php';
+?>
 
     <div class="results">
         <div class="main-content">
@@ -62,63 +94,6 @@
                 <a class="back-button" href="sewa.mobil.php">Kembali</a>
                 <h1>Hasil Pencarian Mobil</h1>
             </div>
-            <?php
-                // Database connection
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "bali";
-
-                // Create connection
-                $conn = new mysqli($servername, $username, $password, $dbname);
-
-                // Check connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
-
-                // Fetching form data
-                $destination = $_GET['destination'];
-                $check_in = $_GET['check-in-date'];
-                $check_out = $_GET['check-out-date'];
-                $rooms = $_GET['rooms'];
-
-                // Mapping destination IDs to names
-                $destination_name = '';
-                if ($destination == '1') {
-                    $destination_name = 'Surabaya';
-                } elseif ($destination == '2') {
-                    $destination_name = 'Denpasar';
-                } else {
-                    $destination_name = 'Unknown Destination';
-                }
-
-                // Prepare SQL query
-                $sql = "SELECT car.vendor, car.name, bookings_mobil.detail 
-                        FROM car
-                        JOIN bookings_mobil ON car.id_car = bookings_mobil.id_car
-                        WHERE bookings_mobil.id_destinations = ?
-                        AND bookings_mobil.check_in_date = ?";
-
-                if (!empty($check_out)) {
-                    $sql .= " AND bookings_mobil.check_out_date = ?";
-                } 
-
-                if (!empty($rooms)) {
-                    $sql .= " AND bookings_mobil.rooms = ?";
-                }
-
-                // Prepare and bind parameters
-                $stmt = $conn->prepare($sql);
-
-                if (!empty($check_out) && !empty($rooms)) {
-                    $stmt->bind_param("issi", $destination, $check_in, $check_out, $rooms);
-                } else {
-                    $stmt->bind_param("is", $destination, $check_in);
-                }
-                $stmt->execute();
-                $result = $stmt->get_result();
-            ?>
 
             <div class="search-details">
                 <p><strong>Tujuan:</strong> <?= htmlspecialchars($destination_name) ?></p>
@@ -128,7 +103,11 @@
             </div>
 
             <div class="car-results">
-                <?php if ($result->num_rows > 0): ?>
+                <?php if ($errors): ?>
+                    <?php foreach ($errors as $error): ?>
+                        <p><?= htmlspecialchars($error) ?></p>
+                    <?php endforeach; ?>
+                <?php elseif ($result && $result->num_rows > 0): ?>
                     <table>
                         <thead>
                             <tr>
@@ -142,22 +121,23 @@
                                 <tr>
                                     <td><?= htmlspecialchars($row['vendor']) ?></td>
                                     <td><?= htmlspecialchars($row['name']) ?></td>
-                                    <td><a href="<?= htmlspecialchars($row['detail']) ?>" target="_blank">Lihat Selengkapnya</a></td>
+                                    <td><a href="<?= e(safe_external_url($row['detail'])) ?>" target="_blank" rel="noopener noreferrer">Lihat Selengkapnya</a></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
                     </table>
                 <?php else: ?>
                     <p>Tidak ditemukan hasil untuk pencarian Anda.</p>
+                    <?php render_booking_alternatives('car'); ?>
                 <?php endif; ?>
             </div>
 
             <?php
-                // Close connection
+            if ($stmt) {
                 $stmt->close();
-                $conn->close();
+            }
+
             ?>
         </div>
     </div>
-</body>
-</html>
+<?php include 'partials/footer.php'; ?>

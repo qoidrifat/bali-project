@@ -1,0 +1,62 @@
+# Production-safe Apache defaults for shared hosting / Laragon-like servers.
+ServerSignature Off
+
+# Disable directory listing for folders without an index file.
+Options -Indexes
+
+# Block direct access to hidden files and local database/config dumps.
+<FilesMatch "(^\.|config\.example\.php$|\.sql$|\.sqlite$|\.sqlite3$|\.db$|\.bak$|\.backup$|\.env$|\.ini$|\.log$|\.md$)">
+  Require all denied
+</FilesMatch>
+
+# Block legacy/archive paths and files that are not public application routes.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^storage(?:/|$) - [F,L]
+  RewriteRule ^_project_cleanup_quarantine(?:/|$) - [F,L]
+  RewriteRule ^_archive(?:/|$) - [F,L]
+  RewriteRule ^(?:config|includes|database|partials)(?:/|$) - [F,L]
+  RewriteRule ^hasil\.transport\.php$ - [F,L]
+</IfModule>
+
+# Fallback for servers where rewrite rules are unavailable.
+<Files "hasil.transport.php">
+  Require all denied
+</Files>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set X-Permitted-Cross-Domain-Policies "none"
+  Header always unset X-Powered-By
+</IfModule>
+
+<IfModule mod_php.c>
+  php_flag display_errors Off
+  php_flag log_errors On
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(?:avif|webp|jpe?g|png|gif|svg|ico|css|js|woff2?)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json image/svg+xml
+</IfModule>

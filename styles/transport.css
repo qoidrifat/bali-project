@@ -1,555 +1,781 @@
 @import "global.css";
+@import "_tokens.css";
 
-/* =========================================
-   1. RESET & BASE
-   ========================================= */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: #f8f9fa;
-    font-family: 'Inter', sans-serif;
-    color: #333;
+  background:
+    radial-gradient(circle at 15% 8%, rgba(45, 212, 191, 0.12), transparent 28%),
+    linear-gradient(180deg, #fbf8f3 0%, #f8fafc 48%, #ffffff 100%);
+  color: var(--ink-800);
+  font-family: var(--font-sans);
 }
 
-/* =========================================
-   2. NAVBAR
-   ========================================= */
-.navbar {
-    background: white;
-    padding: 1.5rem 4rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-}
-
-.navbar_container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.brand img {
-    height: 40px;
-    object-fit: contain;
-}
-
-.menu {
-    display: flex;
-    gap: 2rem;
-}
-
-.nav-item {
-    text-decoration: none;
-    color: #444;
-    font-size: 16px;
-    font-weight: 500;
-    padding-bottom: 5px;
-}
-
-.nav-item.active {
-    color: #000;
-    font-weight: 700;
-    border-bottom: 3px solid #000;
-}
-
-/* =========================================
-   3. HERO SECTION (Layout Utama)
-   ========================================= */
 .main-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 32px 20px 56px;
 }
 
 .hero-section {
-    background-color: #5aaecb;
-    border-radius: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 4rem;
-    position: relative;
-    overflow: hidden;
-    min-height: 480px;
-    margin-bottom: 3rem;
-    background-image: url('../images/transport3.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.78fr) minmax(560px, 1.22fr);
+  align-items: center;
+  gap: 34px;
+  min-height: 500px;
+  margin-bottom: 42px;
+  padding: 46px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  border-radius: 28px;
+  background:
+    linear-gradient(90deg, rgba(15, 94, 89, 0.74) 0%, rgba(20, 184, 166, 0.34) 45%, rgba(255, 255, 255, 0.08) 100%),
+    url("../images/optimized/transport3.webp") center / cover no-repeat;
+  box-shadow: 0 28px 70px rgba(15, 94, 89, 0.18);
+  animation: baliSoftRise 720ms var(--ease-out) both;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 45%;
+  background: linear-gradient(180deg, transparent, rgba(15, 23, 42, 0.16));
+  pointer-events: none;
 }
 
 .hero-text {
-    flex: 1;
-    position: relative;
-    z-index: 2;
-    padding-right: 2rem;
-    margin-top: -2rem;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  max-width: 420px;
+  animation: baliSoftLeft 780ms var(--ease-out) 90ms both;
 }
 
 .hero-text h1 {
-    color: white;
-    font-size: 38px;
-    font-weight: 700;
-    line-height: 1.4;
-    max-width: 450px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.4vw, 46px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: 0;
+  text-shadow: 0 8px 28px rgba(15, 23, 42, 0.28);
 }
 
-/* =========================================
-   4. SEARCH CARD (Lebar & Lega)
-   ========================================= */
 .search-card {
-    background: white;
-    /* Agar lebar dan lega sesuai gambar referensi */
-    min-width: 850px; 
-    width: auto;
-    padding: 2.5rem;
-    border-radius: 24px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-    position: relative;
-    z-index: 10;
-    margin-right: -3rem; /* Offset sedikit ke kanan */
+  position: relative;
+  z-index: 2;
+  width: min(760px, 100%);
+  min-width: 0;
+  justify-self: end;
+  padding: 24px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+  backdrop-filter: blur(16px);
+  animation: baliSoftRight 820ms var(--ease-out) 180ms both;
 }
 
-/* CONTAINER FORM (GRID KIRI & KANAN) */
-.form-split-container {
-    display: grid;
-    /* Kolom kiri tetap 300px, kolom kanan mengisi sisa ruang */
-    grid-template-columns: 300px 1fr;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+.search-card form {
+  display: grid;
+  gap: 16px;
 }
 
-/* BAGIAN KIRI: RUTE (Dari & Ke) */
-.left-route-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    position: relative;
+.search-card .input-box,
+.search-card .btn-search {
+  animation: baliSoftRise 580ms var(--ease-out) both;
 }
 
-/* BAGIAN KANAN: DINAMIS (Tanggal & Penumpang) */
-.right-dynamic-section {
-    display: flex;
-    flex-wrap: wrap; /* Agar elemen bisa turun/naik */
-    gap: 1rem;
-    align-content: flex-start;
+.search-card .form-grid-top .input-box:nth-child(1) {
+  animation-delay: 280ms;
 }
 
-/* =========================================
-   5. ANIMASI LAYOUT FLEXBOX
-   ========================================= */
-
-/* 1. Box Pergi */
-.box-dept {
-    /* Selalu setengah lebar (kurangi gap) */
-    width: calc(50% - 0.5rem);
-    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+.search-card .form-grid-top .input-box:nth-child(2) {
+  animation-delay: 360ms;
 }
 
-/* 2. Box Pulang */
-.box-return {
-    width: calc(50% - 0.5rem);
-    opacity: 1;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+.search-card .single-row {
+  animation-delay: 440ms;
 }
 
-/* 3. Box Penumpang */
-.box-pax {
-    /* Default (Pulang-Pergi): Lebar penuh di baris bawah */
-    width: 100%;
-    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+.search-card .btn-search {
+  position: relative;
+  overflow: hidden;
+  animation-delay: 520ms;
 }
 
-/* === STATE: ONE WAY (SEKALI JALAN) === */
-/* Saat class 'is-oneway' ditambahkan via JS */
-
-.right-dynamic-section.is-oneway .box-return {
-    /* Box Pulang menyusut hingga hilang */
-    width: 0;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    opacity: 0;
-    pointer-events: none;
+.form-grid-top {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.9fr) minmax(360px, 1.1fr);
+  gap: 16px;
+  align-items: stretch;
+  min-width: 0;
 }
 
-/* Sembunyikan konten dalam agar tidak numpuk */
-.right-dynamic-section.is-oneway .box-return .anim-wrapper {
-    opacity: 0;
-    transition: opacity 0.2s;
+.input-box {
+  position: relative;
+  min-width: 0;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
-/* Box Penumpang bergerak naik ke samping Pergi */
-.right-dynamic-section.is-oneway .box-pax {
-    width: calc(50% - 0.5rem);
+.input-box:focus-within {
+  border-color: rgba(20, 184, 166, 0.65);
+  box-shadow: 0 16px 34px rgba(13, 148, 136, 0.12);
 }
 
-/* =========================================
-   6. INPUT STYLING
-   ========================================= */
-.big-box {
-    background-color: #f8f9fa; /* Abu muda */
-    border-radius: 16px;
-    padding: 1.2rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 95px; /* Tinggi kotak besar */
-    position: relative;
-    transition: background 0.2s;
-    /* Agar tidak gepeng saat animasi */
-    flex-shrink: 0;
-    white-space: nowrap;
+.vertical-group {
+  display: grid;
+  min-height: 176px;
 }
 
-.big-box:focus-within {
-    background-color: #fff;
-    box-shadow: inset 0 0 0 2px #5aaecb;
+.group-item {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 9px;
+  padding: 18px 20px;
 }
 
-.big-box label {
-    font-size: 13px;
-    color: #888;
-    margin-bottom: 8px;
-    font-weight: 600;
-    display: block;
+.group-item label {
+  color: var(--ink-500);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
 }
 
-/* Teks Input Tebal */
-.bold-text {
-    font-weight: 700;
-    font-size: 17px;
-    color: #333;
-    border: none;
-    background: transparent;
-    width: 100%;
-    outline: none;
-    padding: 0;
-    cursor: pointer;
-    text-overflow: ellipsis;
-    overflow: hidden;
+.divider {
+  height: 1px;
+  margin: 0 20px;
+  background: rgba(15, 23, 42, 0.08);
+}
+
+.custom-select,
+.custom-input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink-900);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
 }
 
 .custom-select {
-    -webkit-appearance: none;
-    appearance: none;
+  cursor: pointer;
+  appearance: none;
+  padding-right: 28px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--ink-500) 50%),
+    linear-gradient(135deg, var(--ink-500) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 8px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
 }
 
-/* Swap Button */
-.swap-btn-floating {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    cursor: pointer;
-    z-index: 5;
-    color: #555;
-    font-size: 16px;
+.custom-input::placeholder {
+  color: var(--ink-400);
+  font-weight: 600;
+}
+
+.custom-input:disabled,
+.custom-input:disabled + input,
+#return-date-wrapper[style*="0.5"] {
+  color: var(--ink-400);
+}
+
+.flatpickr-input,
+.flatpickr-input[readonly] {
+  cursor: pointer;
+}
+
+.row-space {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.toggle-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.toggle-label {
+  color: var(--ink-500);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.switch-custom {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  flex: 0 0 auto;
+}
+
+.switch-custom input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.slider-round {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  border-radius: 999px;
+  background: #d7dde5;
+  transition: background 180ms ease;
+}
+
+.slider-round::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.22);
+  transition: transform 180ms ease;
+}
+
+.switch-custom input:checked + .slider-round {
+  background: var(--brand-600);
+}
+
+.switch-custom input:checked + .slider-round::before {
+  transform: translateX(18px);
+}
+
+.swap-btn {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--brand-700);
+  cursor: pointer;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+  transition: transform 180ms ease, box-shadow 180ms ease, color 180ms ease;
+}
+
+.swap-btn:hover {
+  color: var(--sunset-600);
+  transform: translateY(-50%) scale(1.04);
+  box-shadow: 0 16px 28px rgba(15, 23, 42, 0.16);
+}
+
+.swap-btn i {
+  pointer-events: none;
 }
 
 .fa-rotate-90 {
+  transform: rotate(90deg);
+}
+
+.swap-btn.rotating i {
+  animation: swap-spin 300ms ease;
+}
+
+@keyframes swap-spin {
+  from {
     transform: rotate(90deg);
+  }
+  to {
+    transform: rotate(270deg);
+  }
 }
 
-/* =========================================
-   7. TOGGLE SWITCH & HEADER
-   ========================================= */
-.label-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 8px; /* Jarak ke input di bawahnya */
+.single-row {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
 }
 
-/* Container Toggle & Text (Row) */
-.toggle-flex {
-    display: flex;
-    flex-direction: row !important; /* Paksa baris */
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
+.single-row .custom-select {
+  font-size: 16px;
 }
 
-.toggle-flex span {
-    font-size: 12px;
-    color: #666;
-    font-weight: 500;
-}
-
-/* Switch iOS Style */
-.switch-ios {
-    position: relative;
-    display: inline-block;
-    width: 34px;
-    height: 20px;
-    margin-bottom: 0;
-}
-
-.switch-ios input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider-ios {
-    position: absolute;
-    cursor: pointer;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #ccc;
-    border-radius: 20px;
-    transition: .4s;
-}
-
-.slider-ios:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 2px;
-    bottom: 2px;
-    background-color: white;
-    border-radius: 50%;
-    transition: .4s;
-}
-
-input:checked + .slider-ios {
-    background-color: #31006e; /* Ungu gelap sesuai referensi */
-}
-
-input:checked + .slider-ios:before {
-    transform: translateX(14px);
-}
-
-/* Icons & Button */
-.input-with-icon {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.input-with-icon i {
-    position: absolute;
-    right: 0;
-    bottom: 5px;
-    color: #333;
-    font-size: 18px;
-    pointer-events: none;
-}
-
-/* Button Cari */
 .btn-search {
-    width: 100%;
-    background-color: #2dd4fc;
-    color: white;
-    border: none;
-    padding: 1.2rem;
-    border-radius: 16px;
-    font-size: 18px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s;
-    margin-top: 5px;
-    box-shadow: 0 4px 15px rgba(45, 212, 252, 0.4);
+  width: 100%;
+  min-height: 56px;
+  border: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--brand-600), var(--brand-500));
+  color: #ffffff;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 16px 30px rgba(13, 148, 136, 0.25);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
 .btn-search:hover {
-    background-color: #1bcbf5;
+  transform: translateY(-1px);
+  box-shadow: 0 20px 36px rgba(13, 148, 136, 0.3);
+  background: linear-gradient(135deg, var(--brand-700), var(--brand-500));
 }
 
-/* =========================================
-   8. RECOMMENDATIONS
-   ========================================= */
+.btn-search::after {
+  content: "";
+  position: absolute;
+  inset: -35% auto -35% -40%;
+  width: 34%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn-search:hover::after {
+  opacity: 1;
+  animation: baliButtonSheen 820ms var(--ease-out);
+}
+
+.btn-search:active {
+  transform: translateY(0);
+}
+
 .recommendations h2 {
-    font-size: 22px;
-    color: #444;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
+  margin: 0 0 20px;
+  color: var(--ink-800);
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0;
 }
 
 .cards-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
 }
 
 .promo-card {
-    height: 260px;
-    border-radius: 24px;
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  position: relative;
+  min-height: 260px;
+  overflow: hidden;
+  border-radius: 22px;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.12);
+  transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out), filter 260ms var(--ease-out);
+  animation: baliSoftRise 680ms var(--ease-out) both;
 }
 
-.card-lion { background-image: url('../images/transport2.png'); }
-.card-garuda { background-image: url('../images/transport1.png'); }
+.promo-card:nth-child(1) {
+  animation-delay: 120ms;
+}
+
+.promo-card:nth-child(2) {
+  animation-delay: 220ms;
+}
+
+.promo-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 54px rgba(15, 23, 42, 0.18);
+  filter: saturate(1.04);
+}
+
+.card-lion {
+  background-image: url("../images/optimized/transport2.webp");
+}
+
+.card-garuda {
+  background-image: url("../images/optimized/transport1.webp");
+}
 
 .overlay {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.02) 0%, rgba(15, 23, 42, 0.28) 45%, rgba(15, 23, 42, 0.78) 100%);
 }
 
 .card-content {
-    position: relative;
-    z-index: 2;
-    height: 100%;
-    padding: 1.8rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.card-top,
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 .card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.airline-logo {
-    height: 45px;
-    filter: brightness(0) invert(1);
-}
-
-.btn-detail {
-    color: #2b55ff;
-    background: rgba(255,255,255,0.9);
-    padding: 8px 16px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 14px;
+  align-items: flex-start;
 }
 
 .card-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    color: white;
+  align-items: flex-end;
+  color: #ffffff;
+}
+
+.airline-logo {
+  max-width: 138px;
+  height: 45px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.btn-detail {
+  flex: 0 0 auto;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--brand-800);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+}
+
+.route-info {
+  display: grid;
+  gap: 4px;
+}
+
+.small-label {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .destination-name {
-    font-size: 24px;
-    font-weight: 700;
+  display: block;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.15;
 }
 
 .price-info {
-    font-size: 18px;
-    font-weight: 600;
+  max-width: 190px;
+  text-align: right;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.3;
 }
 
-/* =========================================
-   9. MODAL & FLATPICKR OVERRIDES (FIXED)
-   ========================================= */
-.calendar-modal-overlay { 
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
-    background-color: rgba(0,0,0,0.6); 
-    display: flex; justify-content: center; align-items: center; 
-    z-index: 9999; 
-    opacity: 0; visibility: hidden; 
-    transition: all 0.3s; backdrop-filter: blur(3px); 
-}
-.calendar-modal-overlay.active { opacity: 1; visibility: visible; }
-
-.calendar-modal-container { 
-    background: white; padding: 1.5rem; 
-    border-radius: 24px; 
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); 
-    position: relative; 
-    transform: scale(0.9); transition: transform 0.3s; 
-    display: inline-block;
-}
-.calendar-modal-overlay.active .calendar-modal-container { transform: scale(1); }
-
-.modal-close-btn { 
-    position: absolute; top: -15px; right: -15px; 
-    background-color: #e63946; color: white; border: none; 
-    width: 40px; height: 40px; border-radius: 50%; 
-    font-size: 18px; display: flex; align-items: center; justify-content: center; 
-    cursor: pointer; box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3); 
-    z-index: 10; transition: transform 0.2s; 
-}
-.modal-close-btn:hover { transform: scale(1.1); }
-
-/* --- GRID KALENDER FIX --- */
-.flatpickr-calendar { 
-    box-shadow: none !important; border: none !important; 
-    width: 360px !important; /* LEBAR DIPERBESAR AGAR MUAT 7 HARI */
+.calendar-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background-color: rgba(15, 23, 42, 0.58);
+  opacity: 0;
+  visibility: hidden;
+  backdrop-filter: blur(4px);
+  transition: opacity 220ms ease, visibility 220ms ease;
 }
 
-.flatpickr-months { padding: 10px 0 20px 0; }
-
-.flatpickr-current-month { 
-    font-size: 20px !important; font-weight: 800 !important; 
-    text-align: left !important; left: 0 !important; 
-    padding-left: 10px !important; width: 100% !important; 
+.calendar-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
 }
 
-.flatpickr-current-month .cur-month, 
-.flatpickr-current-month .cur-year { 
-    font-weight: 800 !important; color: #111 !important; 
+.calendar-modal-container {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  padding: 24px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 25px 50px rgba(15, 23, 42, 0.26);
+  transform: scale(0.96);
+  transition: transform 220ms ease;
 }
 
-.flatpickr-months .flatpickr-prev-month, 
-.flatpickr-months .flatpickr-next-month { 
-    top: 5px !important; height: 30px !important; width: 30px !important; right: 10px !important; 
-}
-.flatpickr-months .flatpickr-prev-month { right: 50px !important; left: auto !important; }
-
-.flatpickr-months .flatpickr-prev-month:hover svg, 
-.flatpickr-months .flatpickr-next-month:hover svg { 
-    fill: #5aaecb !important; 
+.calendar-modal-overlay.active .calendar-modal-container {
+  transform: scale(1);
 }
 
-span.flatpickr-weekday { 
-    color: #888 !important; font-weight: 600 !important; font-size: 13px !important; 
+.modal-close-btn {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background-color: #ef4444;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(239, 68, 68, 0.28);
 }
 
-/* Hari */
-.flatpickr-day { 
-    font-size: 14px !important; font-weight: 600 !important; 
-    color: #333 !important; border-radius: 10px !important; 
-    width: 44px !important; max-width: 44px !important; height: 44px !important; line-height: 44px !important;
-    margin: 3px !important; 
-    border: 1px solid transparent !important; 
+.flatpickr-calendar {
+  width: 360px !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
-.flatpickr-day.selected { 
-    background: #5aaecb !important; border-color: #5aaecb !important; color: #fff !important; 
+.flatpickr-months {
+  padding: 10px 0 20px;
 }
 
-.flatpickr-day.prevMonthDay, 
-.flatpickr-day.nextMonthDay { 
-    color: #ccc !important; font-weight: 400 !important; 
+.flatpickr-current-month {
+  left: 0 !important;
+  width: 100% !important;
+  padding-left: 10px !important;
+  text-align: left !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
 }
 
-.flatpickr-day.flatpickr-disabled { 
-    color: #e0e0e0 !important; text-decoration: line-through; cursor: not-allowed !important; 
+.flatpickr-current-month .cur-month,
+.flatpickr-current-month .cur-year {
+  color: var(--ink-900) !important;
+  font-weight: 800 !important;
 }
 
-.flatpickr-day:not(.flatpickr-disabled):not(.prevMonthDay):hover { 
-    background: #e6f7ff !important; 
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
+  top: 5px !important;
+  right: 10px !important;
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.flatpickr-months .flatpickr-prev-month {
+  right: 50px !important;
+  left: auto !important;
+}
+
+.flatpickr-months .flatpickr-prev-month:hover svg,
+.flatpickr-months .flatpickr-next-month:hover svg {
+  fill: var(--brand-600) !important;
+}
+
+span.flatpickr-weekday {
+  color: var(--ink-500) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+.flatpickr-day {
+  width: 44px !important;
+  max-width: 44px !important;
+  height: 44px !important;
+  margin: 3px !important;
+  border: 1px solid transparent !important;
+  border-radius: 10px !important;
+  color: var(--ink-800) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  line-height: 44px !important;
+}
+
+.flatpickr-day.selected {
+  border-color: var(--brand-600) !important;
+  background: var(--brand-600) !important;
+  color: #ffffff !important;
+}
+
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+  color: var(--ink-300) !important;
+  font-weight: 500 !important;
+}
+
+.flatpickr-day.flatpickr-disabled {
+  color: var(--ink-200) !important;
+  cursor: not-allowed !important;
+  text-decoration: line-through;
+}
+
+.flatpickr-day:not(.flatpickr-disabled):not(.prevMonthDay):hover {
+  background: var(--brand-50) !important;
 }
 
 .dayContainer {
-    width: 360px !important; min-width: 360px !important; max-width: 360px !important;
-    padding: 0 !important;
-    justify-content: flex-start !important;
+  width: 360px !important;
+  min-width: 360px !important;
+  max-width: 360px !important;
+  padding: 0 !important;
+  justify-content: flex-start !important;
+}
+
+@media (max-width: 1080px) {
+  .hero-section {
+    grid-template-columns: 1fr;
+    padding: 34px;
+  }
+
+  .hero-text {
+    max-width: 650px;
+  }
+
+  .search-card {
+    justify-self: stretch;
+    width: 100%;
+  }
+}
+
+@media (max-width: 820px) {
+  .main-content {
+    padding: 20px 14px 44px;
+  }
+
+  .hero-section {
+    min-height: auto;
+    gap: 24px;
+    padding: 26px 16px;
+    border-radius: 22px;
+  }
+
+  .hero-text h1 {
+    font-size: 30px;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .search-card {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .form-grid-top,
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vertical-group {
+    min-height: auto;
+  }
+
+  .group-item {
+    padding: 17px 18px;
+  }
+
+  .card-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .price-info {
+    max-width: none;
+    text-align: left;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-text {
+    max-width: 330px;
+  }
+
+  .hero-text h1 {
+    font-size: 28px;
+    line-height: 1.16;
+  }
+
+  .search-card {
+    width: min(340px, 100%);
+    justify-self: start;
+  }
+
+  .row-space {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .toggle-container {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .hero-section {
+    padding: 24px 14px;
+  }
+
+  .hero-text h1 {
+    font-size: 28px;
+    line-height: 1.16;
+  }
+
+  .search-card {
+    padding: 16px;
+  }
+
+  .custom-select,
+  .custom-input {
+    font-size: 15px;
+  }
+
+  .swap-btn {
+    right: 14px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .calendar-modal-container {
+    padding: 18px 10px;
+  }
+
+  .flatpickr-calendar,
+  .dayContainer {
+    width: 320px !important;
+    min-width: 320px !important;
+    max-width: 320px !important;
+  }
+
+  .flatpickr-day {
+    width: 39px !important;
+    max-width: 39px !important;
+    height: 39px !important;
+    margin: 3px !important;
+    line-height: 39px !important;
+  }
 }

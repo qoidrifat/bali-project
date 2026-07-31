@@ -1,28 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us</title>
-    <link rel="stylesheet" href="styles/about.css" />
-  </head>
-  <body>
-    <div class="navbar">
-      <div class="navbar_container">
-        <div class="brand">
-          <img src="images/logo.png" alt="logo" />
-        </div>
-        <div class="menu">
-          <a class="nav-item" href="index.php">Home</a>
-          <a class="nav-item" href="destination.php">Destination</a>
-          <a class="nav-item active" href="#">About</a>
-          <a class="nav-item" href="contact.php">Contact</a>
-          <a class="nav-item" href="visa.php">Visa</a>
-          <a class="nav-item" href="transport.php">Transport</a>
-          <a class="nav-item" href="tiket.php">Tiket</a>
-        </div>
-      </div>
-    </div>
+<?php
+$page_title = 'About Us';
+$page_desc  = 'Mengenal Pulau Bali, alam, budaya, dan pengalaman wisata yang ditawarkan.';
+$page_css   = 'styles/about.css';
+$active     = 'about';
+include 'partials/head.php';
+include 'partials/navbar.php';
+?>
 
     <div class="wrapper">
       <div class="banner">
@@ -59,5 +42,4 @@
         </div>
       </div>
     </div>
-  </body>
-</html>
+<?php include 'partials/footer.php'; ?>

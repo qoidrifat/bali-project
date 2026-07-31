@@ -1,146 +1,19 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" href="styles/tiket.bus.css" />
-  <title>Tiket Bus</title>
-  <style>
-    .nav-item {
-      font-family: "Poppins", sans-serif;
-      font-weight: 400;
-      font-size: 20px;
-      color: #000000;
-      cursor: pointer;
-      position: relative;
-      padding: 5px 0;
-    }
-
-    .nav-item::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 3px;
-      background-color: #000000;
-      transition: width 0.3s;
-    }
-
-    .nav-item:hover {
-      font-weight: 700;
-    }
-
-    .nav-item:hover::after {
-      width: 100%;
-    }
-
-    .nav-item.active {
-      font-family: "Poppins", sans-serif;
-      font-weight: 700;
-      position: relative;
-    }
-
-    .nav-item.active::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background-color: #000000;
-    }
-
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 30px;
-      height: 16px;
-    }
-
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #6750A4;
-      transition: 0.4s;
-      border-radius: 34px;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 12px;
-      width: 12px;
-      left: 3px;
-      bottom: 2px;
-      background-color: white;
-      transition: 0.4s;
-      border-radius: 50%;
-    }
-
-    input:checked+.slider {
-      background-color: #21005D;
-    }
-
-    input:checked+.slider:before {
-      transform: translateX(14px);
-    }
-
-    .date-container .hidden {
-      display: none;
-    }
-
-    .back-button {
-      background-color: #4CAF50;
-      color: white;
-      text-decoration: none;
-      border-radius: 30px;
-      padding: 10px 20px;
-    }
-
-    .back-button:hover {
-      background-color: #45a049;
-    }
-
-    h1 {
-      font-size: 40px;
-    }
-  </style>
-</head>
-
-<body>
+<?php
+$page_title = 'Tiket Bus';
+$page_desc  = 'Cari tiket bus berdasarkan kota asal, tujuan, tanggal, dan jumlah kursi.';
+$page_css   = 'styles/tiket.bus.css';
+$active     = 'tiket';
+$extra_head = <<<'HTML'
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+HTML;
+include 'partials/head.php';
+include 'partials/navbar.php';
+?>
   <div class="tiket">
-    <div class="navbar">
-      <div class="navbar_container">
-        <div class="brand">
-          <img src="images/logo.png" alt="logo" />
-        </div>
-        <div class="menu">
-          <a class="nav-item" href="index.php">Home</a>
-          <a class="nav-item" href="destination.html">Destination</a>
-          <a class="nav-item" href="about.html">About</a>
-          <a class="nav-item" href="contact.html">Contact</a>
-          <a class="nav-item" href="visa.php">Visa</a>
-          <a class="nav-item" href="transport.php">Transport</a>
-          <a class="nav-item active" href="#">Tiket</a>
-        </div>
-      </div>
-    </div>
-
     <div class="main-content">
       <div class="bus-ticket-section">
         <div class="bus-image">
-          <img src="images/tiket/bus.png" alt="Bus Image" />
+          <img src="images/optimized/tiket/bus.webp" alt="Bus Image" width="1200" height="675" decoding="async" fetchpriority="high" />
           <div class="back-overlay">
             <a class="back-button" href="tiket.php">Kembali</a>
           </div>
@@ -164,22 +37,23 @@
               </select>
 
               <div class="date-container">
-                <label for="departure-date">
-                  Pergi
-                  <span style="display: inline-flex; align-items: center; margin-left: 110.7px;">
-                    <label for="return-switch">Pulang-Pergi?</label>
-                    <label class="switch" style="margin-left: 10px;">
-                      <input type="checkbox" id="return-switch">
-                      <span class="slider"></span>
-                    </label>
-                  </span>
-                </label>
-                <input type="date" id="departure-date" name="departure-date" placeholder="Tanggal Keberangkatan">
+                <div class="date-field">
+                  <div class="date-label-row">
+                    <label for="departure-date">Pergi</label>
+                    <span class="trip-toggle">
+                      <span>Pulang-Pergi?</span>
+                      <label class="switch">
+                        <input type="checkbox" id="return-switch">
+                        <span class="slider"></span>
+                      </label>
+                    </span>
+                  </div>
+                  <input type="text" id="departure-date" name="departure-date" class="custom-input" placeholder="Pilih Tanggal">
+                </div>
 
-
-                <div id="return-date-container" class="hidden">
+                <div id="return-date-container" class="date-field">
                   <label for="return-date">Pulang</label>
-                  <input type="date" id="return-date" name="return-date" placeholder="Tanggal Kembali (Opsional)">
+                  <input type="text" id="return-date" name="return-date" class="custom-input" placeholder="Pilih Tanggal Kembali" disabled>
                 </div>
               </div>
 
@@ -197,37 +71,139 @@
     </div>
   </div>
 
+  <div class="calendar-modal-overlay" id="calendar-overlay">
+    <div class="calendar-modal-container">
+      <button class="modal-close-btn" id="modal-close" type="button" aria-label="Tutup kalender">&times;</button>
+      <h3 id="calendar-title">Pilih Tanggal</h3>
+      <div id="flatpickr-container"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      const departureDate = document.getElementById('departure-date');
-      const returnDate = document.getElementById('return-date');
       const returnSwitch = document.getElementById('return-switch');
       const returnDateContainer = document.getElementById('return-date-container');
+      const returnInputRaw = document.getElementById('return-date');
+      const calendarOverlay = document.getElementById('calendar-overlay');
+      const modalCloseBtn = document.getElementById('modal-close');
+      const flatpickrContainer = document.getElementById('flatpickr-container');
+      const calendarTitle = document.getElementById('calendar-title');
 
-      departureDate.addEventListener('change', function() {
-        if (returnDate.value && new Date(returnDate.value) < new Date(departureDate.value)) {
-          alert('Return date cannot be before departure date.');
-          returnDate.value = '';
+      if (!window.flatpickr || !returnSwitch || !returnDateContainer || !calendarOverlay) {
+        return;
+      }
+
+      let modalPickerInstance = null;
+      const simulatedToday = "2026-02-07";
+
+      const inputConfig = {
+        altInput: true,
+        altFormat: "l, j F Y",
+        dateFormat: "Y-m-d",
+        locale: "id",
+        disableMobile: true,
+        clickOpens: false,
+        onReady: function(selectedDates, dateStr, instance) {
+          instance.altInput.addEventListener('click', function() {
+            if (!instance._input.disabled) {
+              const type = instance.element.id === 'departure-date' ? 'departure' : 'return';
+              openModalCalendar(instance, type);
+            }
+          });
         }
+      };
+
+      const departureInputInstance = flatpickr("#departure-date", {
+        ...inputConfig,
+        defaultDate: simulatedToday
       });
 
-      returnDate.addEventListener('change', function() {
-        if (new Date(returnDate.value) < new Date(departureDate.value)) {
-          alert('Return date cannot be before departure date.');
-          returnDate.value = '';
-        }
+      const returnInputInstance = flatpickr("#return-date", {
+        ...inputConfig
       });
+
+      returnDateContainer.style.opacity = '0.5';
 
       returnSwitch.addEventListener('change', function() {
-        if (returnSwitch.checked) {
-          returnDateContainer.classList.remove('hidden');
+        if (this.checked) {
+          returnDateContainer.style.opacity = '1';
+          returnInputRaw.removeAttribute('disabled');
+          if (returnInputInstance) {
+            returnInputInstance._input.disabled = false;
+            setTimeout(function() {
+              openModalCalendar(returnInputInstance, 'return');
+            }, 100);
+          }
         } else {
-          returnDateContainer.classList.add('hidden');
-          returnDate.value = '';
+          returnDateContainer.style.opacity = '0.5';
+          returnInputRaw.setAttribute('disabled', 'disabled');
+          if (returnInputInstance) {
+            returnInputInstance.clear();
+            returnInputInstance._input.disabled = true;
+          }
+        }
+      });
+
+      function openModalCalendar(targetInputInstance, type) {
+        calendarOverlay.classList.add('active');
+        if (calendarTitle) {
+          calendarTitle.innerText = type === 'departure' ? 'Pilih Tanggal Pergi' : 'Pilih Tanggal Pulang';
+        }
+
+        let minDateConfig = simulatedToday;
+        if (type === 'return' && departureInputInstance.selectedDates.length > 0) {
+          const deptDate = departureInputInstance.selectedDates[0];
+          const simDate = new Date(simulatedToday);
+          minDateConfig = deptDate > simDate ? deptDate : simulatedToday;
+        }
+
+        if (modalPickerInstance) {
+          modalPickerInstance.destroy();
+          flatpickrContainer.innerHTML = '';
+        }
+
+        modalPickerInstance = flatpickr(flatpickrContainer, {
+          locale: "id",
+          inline: true,
+          defaultDate: targetInputInstance.selectedDates[0] || undefined,
+          minDate: minDateConfig,
+          onDayCreate: function(dObj, dStr, fp, dayElem) {
+            const dateStr = dayElem.dateObj.toISOString().split('T')[0];
+            if (dateStr === simulatedToday) {
+              dayElem.style.border = "2px solid #5aaecb";
+              dayElem.style.fontWeight = "bold";
+              dayElem.title = "Hari Ini (Simulasi)";
+            }
+          },
+          onChange: function(selectedDates) {
+            targetInputInstance.setDate(selectedDates[0], true);
+            if (type === 'departure' && returnInputInstance.selectedDates.length > 0) {
+              if (returnInputInstance.selectedDates[0] < selectedDates[0]) {
+                returnInputInstance.clear();
+              }
+            }
+            setTimeout(closeModal, 200);
+          }
+        });
+      }
+
+      function closeModal() {
+        calendarOverlay.classList.remove('active');
+        if (modalPickerInstance) {
+          modalPickerInstance.destroy();
+          modalPickerInstance = null;
+          flatpickrContainer.innerHTML = '';
+        }
+      }
+
+      modalCloseBtn.addEventListener('click', closeModal);
+      calendarOverlay.addEventListener('click', function(e) {
+        if (e.target === calendarOverlay) {
+          closeModal();
         }
       });
     });
   </script>
-</body>
-
-</html>
+<?php include 'partials/footer.php'; ?>

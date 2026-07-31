@@ -1,36 +1,15 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Transport - Cek Tiket Pesawat</title>
-  
-  <link rel="stylesheet" href="styles/transport.css">
-  
+<?php
+$page_title = 'Transport';
+$page_desc  = 'Cari tiket pesawat ke Bali berdasarkan rute, tanggal, dan jumlah penumpang.';
+$page_css   = 'styles/transport.css';
+$active     = 'transport';
+$extra_head = <<<'HTML'
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-</head>
-
-<body>
-
-  <div class="navbar">
-    <div class="navbar_container">
-      <div class="brand">
-        <img src="images/logo.png" alt="logo" />
-      </div>
-      <div class="menu">
-        <a class="nav-item" href="index.php">Home</a>
-        <a class="nav-item" href="destination.php">Destination</a>
-        <a class="nav-item" href="about.php">About</a>
-        <a class="nav-item" href="contact.php">Contact</a>
-        <a class="nav-item" href="visa.php">Visa</a>
-        <a class="nav-item active" href="#">Transport</a>
-        <a class="nav-item" href="tiket.php">Tiket</a>
-      </div>
-    </div>
-  </div>
+HTML;
+include 'partials/head.php';
+include 'partials/navbar.php';
+?>
 
   <div class="main-content">
     
@@ -315,5 +294,4 @@
     });
   </script>
 
-</body>
-</html>
+<?php include 'partials/footer.php'; ?>

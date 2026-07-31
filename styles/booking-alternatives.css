@@ -1,0 +1,184 @@
+.booking-alternatives {
+    margin-top: 1rem;
+    padding: clamp(1rem, 2.5vw, 1.35rem);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--brand-300) 14%, transparent), transparent 18rem),
+        var(--card-bg);
+    box-shadow: var(--shadow-lg);
+}
+
+.booking-alternatives__header {
+    max-width: 680px;
+    margin-bottom: 1rem;
+}
+
+.booking-alternatives__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.55rem;
+    color: var(--brand-500);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.booking-alternatives__eyebrow::before {
+    content: "";
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: var(--brand-300);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--brand-300) 16%, transparent);
+}
+
+.booking-alternatives h2 {
+    margin: 0;
+    color: var(--ink-900);
+    font-family: "Plus Jakarta Sans", Inter, sans-serif;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    line-height: 1.08;
+    text-align: left;
+}
+
+.booking-alternatives p {
+    max-width: 62ch;
+    margin: 0.55rem 0 0;
+    color: var(--ink-500);
+    line-height: 1.65;
+}
+
+.booking-alternatives__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.booking-platform-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.85rem;
+    align-items: center;
+    min-height: 132px;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--card-bg-strong) 82%, transparent);
+    color: var(--ink-900);
+    text-decoration: none;
+    transition:
+        transform 240ms ease,
+        border-color 240ms ease,
+        box-shadow 240ms ease,
+        background-color 240ms ease;
+}
+
+.booking-platform-card:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--brand-500) 32%, var(--border));
+    box-shadow: 0 20px 46px color-mix(in srgb, var(--brand-500) 13%, transparent);
+}
+
+.booking-platform-card:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--brand-300) 42%, transparent);
+    outline-offset: 3px;
+}
+
+.booking-platform-card__logo {
+    display: inline-grid;
+    width: 50px;
+    height: 50px;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--input-bg);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, #FFFFFF 56%, transparent);
+}
+
+.booking-platform-card__logo img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.booking-platform-card__body {
+    display: grid;
+    gap: 0.3rem;
+    min-width: 0;
+}
+
+.booking-platform-card__tag {
+    color: var(--brand-500);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.booking-platform-card strong {
+    color: var(--ink-900);
+    font-size: 1.05rem;
+    line-height: 1.2;
+}
+
+.booking-platform-card__body > span:last-child {
+    color: var(--ink-500);
+    font-size: 0.88rem;
+    line-height: 1.55;
+}
+
+.booking-platform-card__arrow {
+    display: inline-grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--brand-300) 13%, transparent);
+    color: var(--brand-500);
+    transition: transform 240ms ease, background-color 240ms ease;
+}
+
+.booking-platform-card__arrow svg {
+    width: 17px;
+    height: 17px;
+}
+
+.booking-platform-card:hover .booking-platform-card__arrow {
+    transform: translate(2px, -2px);
+    background: color-mix(in srgb, var(--brand-300) 22%, transparent);
+}
+
+html[data-theme="dark"] .booking-platform-card__logo {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 980px) {
+    .booking-alternatives__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-platform-card {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 520px) {
+    .booking-platform-card {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .booking-platform-card__arrow {
+        grid-column: 1 / -1;
+        justify-self: end;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .booking-platform-card,
+    .booking-platform-card__arrow {
+        transition: none;
+    }
+}

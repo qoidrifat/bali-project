@@ -1,0 +1,416 @@
+/* ============================================================
+   THEME SYNC
+   Compatibility layer for legacy page CSS + current design system.
+   Loaded after page styles so light/dark mode stays consistent.
+   ============================================================ */
+
+html {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--page-bg) !important;
+  color: var(--ink-800);
+  transition:
+    background var(--d-base) var(--ease-out),
+    color var(--d-base) var(--ease-out);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.page-title,
+.page-header h1,
+.form-container h2,
+.recommendations h2,
+.main-content h1,
+.destination-name,
+.ticket-option .title {
+  color: var(--ink-900);
+}
+
+p,
+.page-header p,
+.form-container p,
+.about p,
+.detail .detail_content p,
+.search-details p,
+.small-label {
+  color: var(--ink-600);
+}
+
+a {
+  color: inherit;
+}
+
+/* Legacy navbar classes that still exist in old stylesheets. */
+.navbar,
+.navbar_container {
+  background: var(--surface-glass-strong) !important;
+  color: var(--ink-900);
+  border-color: var(--border);
+}
+
+.nav-item {
+  color: var(--ink-700) !important;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  color: var(--ink-900) !important;
+}
+
+.nav-item::after,
+.nav-item.active::after {
+  background-color: var(--brand-500) !important;
+}
+
+/* Generic page blocks. */
+.tiket-container,
+.about,
+.contact_form,
+.wrapper,
+.detail,
+.main-content,
+.results {
+  color: var(--ink-800);
+}
+
+.about,
+.contact_form,
+.tiket-container,
+.results {
+  background: transparent !important;
+}
+
+.results,
+.ticket-date-panel,
+.search-card,
+.ticket-form-overlay,
+.booking-form-overlay,
+.calendar-modal-container,
+.form-container,
+.search-details,
+.result-summary,
+.feature,
+.modal,
+.tab-switch,
+.empty-state__icon {
+  background: var(--card-bg) !important;
+  color: var(--ink-800);
+  border-color: var(--border) !important;
+  box-shadow: var(--shadow-lg);
+}
+
+.search-card,
+.ticket-form-overlay,
+.booking-form-overlay {
+  background: var(--hero-card-bg) !important;
+}
+
+.input-box,
+.date-field,
+.single-row,
+.booking-form-overlay select,
+.booking-form-overlay .custom-input,
+.booking-form-overlay .custom-input[readonly],
+.ticket-form-overlay select,
+.ticket-form-overlay .custom-input,
+.ticket-form-overlay .custom-input[readonly],
+.ticket-form-overlay input,
+.booking-form-overlay input,
+.ticket-form-overlay textarea,
+.booking-form-overlay textarea,
+.input-group input,
+.input-group textarea,
+.input-group select,
+.contact_form input,
+.contact_form textarea,
+.contact_form select,
+select,
+input,
+textarea {
+  background-color: var(--input-bg) !important;
+  color: var(--ink-900) !important;
+  border-color: var(--border-strong) !important;
+}
+
+.group-item {
+  background: transparent !important;
+  color: var(--ink-900);
+}
+
+select option {
+  background: var(--input-bg);
+  color: var(--ink-900);
+}
+
+input::placeholder,
+textarea::placeholder,
+.custom-input::placeholder {
+  color: var(--ink-400) !important;
+}
+
+label,
+.group-item label,
+.date-field label,
+.date-field-head label,
+.toggle-label,
+.trip-toggle,
+.date-panel-eyebrow {
+  color: var(--ink-500) !important;
+}
+
+.divider {
+  background: var(--border) !important;
+}
+
+/* Buttons and active affordances. */
+.btn-search,
+.ticket-form-overlay button[type="submit"],
+.booking-form-overlay button[type="submit"],
+.contact_form button,
+.option-overlay .lihat-detail,
+.bus-results th,
+.hotel-results th,
+.car-results th {
+  background: linear-gradient(135deg, var(--brand-600), var(--brand-500)) !important;
+  color: #ffffff !important;
+}
+
+.btn-search:hover,
+.ticket-form-overlay button[type="submit"]:hover,
+.booking-form-overlay button[type="submit"]:hover,
+.contact_form button:hover,
+.option-overlay .lihat-detail:hover {
+  background: linear-gradient(135deg, var(--brand-700), var(--brand-500)) !important;
+}
+
+.back-button,
+.btn-detail {
+  background: var(--surface-glass-strong) !important;
+  color: var(--brand-700) !important;
+  border-color: var(--border) !important;
+}
+
+html[data-theme="dark"] .back-button,
+html[data-theme="dark"] .btn-detail {
+  color: var(--brand-300) !important;
+}
+
+/* Switches and icon controls. */
+.slider,
+.slider-round {
+  background: var(--ink-300) !important;
+}
+
+.slider::before,
+.slider-round::before,
+.swap-btn {
+  background: var(--card-bg-strong) !important;
+}
+
+.switch input:checked + .slider,
+.switch-custom input:checked + .slider-round {
+  background: var(--brand-600) !important;
+}
+
+.swap-btn {
+  color: var(--brand-600) !important;
+  border-color: var(--border) !important;
+}
+
+/* Hero and image-overlay text intentionally stays white. */
+.hero-text h1,
+.header-overlay h1,
+.banner h1,
+.contact_image,
+.contact_image h1,
+.contact_image p,
+.content-text,
+.content-text h1,
+.content-text p,
+.card_destination div h2,
+.option-overlay,
+.option-overlay .title,
+.card-bottom,
+.route-info,
+.price-info,
+.destination-name,
+.footer,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4,
+.footer p,
+.footer a {
+  color: #ffffff;
+}
+
+.footer__tagline,
+.footer__list a,
+.footer__bottom {
+  color: var(--ink-300) !important;
+}
+
+html[data-theme="dark"] .footer {
+  background: #050a14;
+}
+
+/* Ticket menu cards. */
+.ticket-option,
+.card_destination,
+.promo-card,
+.card-destination {
+  background: var(--surface-muted);
+  box-shadow: var(--shadow-lg);
+}
+
+.option-overlay .lihat-detail {
+  border-radius: var(--r-pill);
+}
+
+/* Table result pages. */
+.bus-results table,
+.hotel-results table,
+.car-results table {
+  color: var(--ink-800);
+}
+
+.bus-results td,
+.hotel-results td,
+.car-results td {
+  border-bottom-color: var(--border) !important;
+}
+
+.bus-results tr:hover,
+.hotel-results tr:hover,
+.car-results tr:hover {
+  background-color: var(--table-row-hover) !important;
+}
+
+.bus-results td a,
+.hotel-results td a,
+.car-results td a,
+.content-text a {
+  color: var(--brand-600) !important;
+}
+
+html[data-theme="dark"] .bus-results td a,
+html[data-theme="dark"] .hotel-results td a,
+html[data-theme="dark"] .car-results td a,
+html[data-theme="dark"] .content-text a {
+  color: var(--brand-300) !important;
+}
+
+.search-details {
+  border-left-color: var(--brand-500) !important;
+}
+
+/* Calendar modal and Flatpickr. */
+.calendar-modal-overlay,
+.modal-overlay {
+  background-color: rgba(2, 6, 23, 0.64) !important;
+}
+
+.flatpickr-calendar,
+.flatpickr-months,
+.flatpickr-innerContainer,
+.flatpickr-rContainer,
+.flatpickr-days,
+.dayContainer {
+  background: var(--card-bg-strong) !important;
+  color: var(--ink-900) !important;
+}
+
+.flatpickr-current-month .cur-month,
+.flatpickr-current-month .cur-year,
+.flatpickr-weekday,
+.flatpickr-day {
+  color: var(--ink-800) !important;
+}
+
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+  color: var(--ink-400) !important;
+}
+
+.flatpickr-day.flatpickr-disabled {
+  color: var(--ink-300) !important;
+}
+
+.flatpickr-day.selected {
+  background: var(--brand-600) !important;
+  border-color: var(--brand-600) !important;
+  color: #ffffff !important;
+}
+
+.flatpickr-day:not(.flatpickr-disabled):not(.prevMonthDay):hover {
+  background: var(--surface-muted) !important;
+}
+
+.modal-close-btn,
+.modal__close {
+  background: var(--danger) !important;
+  color: #ffffff !important;
+}
+
+/* Legacy status messages. */
+.success-message {
+  background: rgba(16, 185, 129, 0.14) !important;
+  color: var(--success) !important;
+  border-color: rgba(16, 185, 129, 0.28) !important;
+}
+
+/* Dark mode: reduce overly bright glass while keeping readability. */
+html[data-theme="dark"] .search-card,
+html[data-theme="dark"] .ticket-form-overlay,
+html[data-theme="dark"] .booking-form-overlay,
+html[data-theme="dark"] .calendar-modal-container,
+html[data-theme="dark"] .results {
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="dark"] .hero-section,
+html[data-theme="dark"] .bus-image,
+html[data-theme="dark"] .hotel-image {
+  border-color: rgba(241, 245, 249, 0.12);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.42);
+}
+
+html[data-theme="dark"] .promo-card,
+html[data-theme="dark"] .ticket-option,
+html[data-theme="dark"] .card_destination {
+  box-shadow: 0 24px 52px rgba(0, 0, 0, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-section,
+  .hero-text,
+  .search-card,
+  .bus-image,
+  .hotel-image,
+  .header-overlay,
+  .ticket-form-overlay,
+  .booking-form-overlay,
+  .back-overlay {
+    animation: none !important;
+    transform: none !important;
+  }
+}

@@ -1,31 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visa Information</title>
-  <link rel="stylesheet" href="styles/visa.css">
-</head>
-
-<body>
-  <!-- Navbar -->
-  <div class="navbar">
-    <div class="navbar_container">
-      <div class="brand">
-        <img src="images/logo.png" alt="logo" />
-      </div>
-      <div class="menu">
-        <a class="nav-item" href="index.php">Home</a>
-        <a class="nav-item" href="destination.php">Destination</a>
-        <a class="nav-item" href="about.php">About</a>
-        <a class="nav-item" href="contact.php">Contact</a>
-        <a class="nav-item active" href="#">Visa</a>
-        <a class="nav-item" href="transport.php">Transport</a>
-        <a class="nav-item" href="tiket.php">Tiket</a>
-      </div>
-    </div>
-  </div>
+<?php
+$page_title = 'Visa Information';
+$page_desc  = 'Panduan e-Visa Indonesia untuk wisatawan yang ingin berkunjung ke Bali.';
+$page_css   = 'styles/visa.css';
+$active     = 'visa';
+include 'partials/head.php';
+include 'partials/navbar.php';
+?>
 
   <!-- Main Content -->
   <div class="main-content">
@@ -59,6 +39,4 @@
     </div>
   </div>
 
-</body>
-
-</html>
+<?php include 'partials/footer.php'; ?>

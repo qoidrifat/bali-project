@@ -1,114 +1,92 @@
-<!DOCTYPE html>
-<html>
+<?php
+include "connection.php";
 
-<head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="styles/hasil.hotel.css" />
-    <title>Hasil Pencarian Hotel</title>
-    <style>
-        .nav-item {
-            font-family: "Poppins", sans-serif;
-            font-weight: 400;
-            font-size: 20px;
-            color: #000000;
-            cursor: pointer;
-            position: relative;
-            padding: 5px 0;
+$errors = [];
+$result = null;
+$stmt = null;
+$conn = $connection;
+
+$destination = trim($_GET['destination'] ?? '');
+$check_in = trim($_GET['check-in-date'] ?? '');
+$check_out = trim($_GET['check-out-date'] ?? '');
+$rooms = trim($_GET['rooms'] ?? '');
+
+$destination_options = [
+    '1' => 'Surabaya',
+    '2' => 'Denpasar',
+];
+
+if (!array_key_exists($destination, $destination_options)) {
+    $errors[] = 'Pilih kota tujuan yang valid.';
+}
+
+if ($check_in === '' || !is_valid_date_value($check_in)) {
+    $errors[] = 'Tanggal check-in wajib diisi dengan format yang valid.';
+}
+
+if ($check_out !== '' && !is_valid_date_value($check_out)) {
+    $errors[] = 'Tanggal check-out tidak valid.';
+}
+
+if ($check_in !== '' && $check_out !== '' && is_valid_date_value($check_in) && is_valid_date_value($check_out) && $check_out < $check_in) {
+    $errors[] = 'Tanggal check-out tidak boleh sebelum tanggal check-in.';
+}
+
+if (!in_array($rooms, ['1', '2'], true)) {
+    $errors[] = 'Pilih jumlah kamar yang valid.';
+}
+
+$destination_name = $destination_options[$destination] ?? '-';
+
+if (!$errors) {
+    if (!$conn) {
+        $errors[] = 'Maaf, koneksi database sedang bermasalah. Silakan coba lagi nanti.';
+    } else {
+        $destination_id = (int) $destination;
+        $rooms_count = (int) $rooms;
+
+        $sql = "SELECT hotel.name, bookings_hotel.detail
+                FROM hotel
+                JOIN bookings_hotel ON hotel.id_hotel = bookings_hotel.id_hotel
+                WHERE bookings_hotel.id_destinations = ?
+                AND bookings_hotel.check_in_date = ?";
+
+        if ($check_out !== '') {
+            $sql .= " AND bookings_hotel.check_out_date = ?";
         }
 
-        .nav-item::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background-color: #000000;
-            transition: width 0.3s;
-        }
+        $sql .= " AND bookings_hotel.rooms = ?";
 
-        .nav-item:hover {
-            font-weight: 700;
-        }
+        $stmt = $conn->prepare($sql);
 
-        .nav-item:hover::after {
-            width: 100%;
-        }
+        if (!$stmt) {
+            error_log('Statement prepare failed in hasil.hotel.php: ' . $conn->error);
+            $errors[] = 'Maaf, pencarian hotel belum bisa diproses.';
+        } else {
+            if ($check_out !== '') {
+                $stmt->bind_param('issi', $destination_id, $check_in, $check_out, $rooms_count);
+            } else {
+                $stmt->bind_param('isi', $destination_id, $check_in, $rooms_count);
+            }
 
-        .nav-item.active {
-            font-family: "Poppins", sans-serif;
-            font-weight: 700;
-            position: relative;
+            if (!$stmt->execute()) {
+                error_log('Statement execute failed in hasil.hotel.php: ' . $stmt->error);
+                $errors[] = 'Maaf, pencarian hotel gagal diproses.';
+            } else {
+                $result = $stmt->get_result();
+            }
         }
+    }
+}
+    $page_title = 'Hasil Pencarian Hotel';
+    $page_desc  = 'Hasil pencarian hotel berdasarkan tujuan, tanggal, dan jumlah kamar.';
+    $page_css   = 'styles/hasil.hotel.css';
+    $active     = 'tiket';
 
-        .nav-item.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: #000000;
-        }
-
-        .results {
-            display: inline-block;
-            justify-content: center;
-            align-items: center;
-            margin-left: 10%;
-        }
-
-        table {
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        th,
-        td {
-            text-align: center;
-            padding: 12px;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .header {
-            align-items: center;
-        }
-
-        .back-button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-        }
-
-        .back-button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="navbar">
-        <div class="navbar_container">
-            <div class="brand">
-                <img src="images/logo.png" alt="logo" />
-            </div>
-            <div class="menu">
-                <a class="nav-item" href="index.php">Home</a>
-                <a class="nav-item" href="destination.php">Destination</a>
-                <a class="nav-item" href="about.php">About</a>
-                <a class="nav-item" href="contact.php">Contact</a>
-                <a class="nav-item" href="visa.php">Visa</a>
-                <a class="nav-item" href="transport.php">Transport</a>
-                <a class="nav-item active" href="tiket.php">Tiket</a>
-            </div>
-        </div>
-    </div>
+    include_once 'partials/booking_alternatives.php';
+    include 'partials/head.php';
+    include 'partials/navbar.php';
+?>
 
     <div class="results">
         <div class="main-content">
@@ -116,61 +94,6 @@
                 <a class="back-button" href="booking.hotel.php">Kembali</a>
                 <h1>Hasil Pencarian Hotel</h1>
             </div>
-            <?php
-            // Database connection
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "bali";
-
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
-            // Fetching form data
-            $destination = $_GET['destination'];
-            $check_in = $_GET['check-in-date'];
-            $check_out = $_GET['check-out-date'];
-            $rooms = $_GET['rooms'];
-
-            // Mapping destination IDs to names
-            $destination_name = '';
-            if ($destination == '1') {
-                $destination_name = 'Surabaya';
-            } elseif ($destination == '2') {
-                $destination_name = 'Denpasar';
-            } else {
-                $destination_name = 'Unknown Destination';
-            }
-
-            // Prepare SQL query
-            $sql = "SELECT hotel.name, bookings_hotel.detail 
-                        FROM hotel
-                        JOIN bookings_hotel ON hotel.id_hotel = bookings_hotel.id_hotel
-                        WHERE bookings_hotel.id_destinations = ?
-                        AND bookings_hotel.check_in_date = ?";
-
-            if (!empty($check_out)) {
-                $sql .= " AND bookings_hotel.check_out_date = ?";
-            }
-
-            if (!empty($rooms)) {
-                $sql .= " AND bookings_hotel.rooms = ?";
-            }
-
-            // Prepare and bind parameters
-            $stmt = $conn->prepare($sql);
-
-            if (!empty($check_out) && !empty($rooms)) {
-                $stmt->bind_param("issi", $destination, $check_in, $check_out, $rooms);
-            }
-            $stmt->execute();
-            $result = $stmt->get_result();
-            ?>
 
             <div class="search-details">
                 <p><strong>Tujuan:</strong> <?= htmlspecialchars($destination_name) ?></p>
@@ -180,7 +103,11 @@
             </div>
 
             <div class="hotel-results">
-                <?php if ($result->num_rows > 0) : ?>
+                <?php if ($errors) : ?>
+                    <?php foreach ($errors as $error) : ?>
+                        <p><?= htmlspecialchars($error) ?></p>
+                    <?php endforeach; ?>
+                <?php elseif ($result && $result->num_rows > 0) : ?>
                     <table>
                         <thead>
                             <tr>
@@ -192,23 +119,23 @@
                             <?php while ($row = $result->fetch_assoc()) : ?>
                                 <tr>
                                     <td><?= htmlspecialchars($row['name']) ?></td>
-                                    <td><a href="<?= htmlspecialchars($row['detail']) ?>" target="_blank">Lihat Selengkapnya</a></td>
+                                    <td><a href="<?= e(safe_external_url($row['detail'])) ?>" target="_blank" rel="noopener noreferrer">Lihat Selengkapnya</a></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
                     </table>
                 <?php else : ?>
                     <p>Tidak ditemukan hasil untuk pencarian Anda.</p>
+                    <?php render_booking_alternatives('hotel'); ?>
                 <?php endif; ?>
             </div>
 
             <?php
-            // Close connection
-            $stmt->close();
-            $conn->close();
+            if ($stmt) {
+                $stmt->close();
+            }
+
             ?>
         </div>
     </div>
-</body>
-
-</html>
+<?php include 'partials/footer.php'; ?>
