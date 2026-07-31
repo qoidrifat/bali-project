@@ -1,0 +1,34 @@
+name: ✨ Feature request
+description: Suggest an idea or improvement for Bali Project
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! Describe the problem you are solving and how the feature should behave.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem does this solve? Who is affected?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How should the feature work? Keep it concrete and minimal.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any workarounds or alternative approaches you have considered.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Compatibility
+      options:
+        - label: The proposal maintains backward compatibility (no broken URLs or routes)
+        - label: The proposal does not require new dependencies or build tools
